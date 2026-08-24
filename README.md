@@ -1,9 +1,8 @@
-# gaurav-portfolio
+# Gaurav-Portfolio
 
 Personal portfolio site — [gauravkanere.link](https://gauravkanere.link)
 
-A static site with no framework and no build step, deployed to AWS S3 +
-CloudFront via a GitHub Actions pipeline.
+A static site , deployed to AWS S3 + CloudFront via a GitHub Actions pipeline.
 
 ## Structure
 
