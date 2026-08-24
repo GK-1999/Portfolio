@@ -1,0 +1,38 @@
+  :root {
+    --bg: #F3F4F1;
+    --surface: #FBFBF9;
+    --surface-2: #EFF0EC;
+    --ink: #17191B;
+    --muted: #55595F;
+    --faint: #898E93;
+    --line: #DEE1DC;
+    --line-strong: #CDD1CB;
+    --accent: #1B6E48;
+    --accent-deep: #145537;
+    --accent-soft: #E6F0EA;
+    --amber: #8A6410;
+    --amber-soft: #F1E9D6;
+    --mono: 'IBM Plex Mono', ui-monospace, monospace;
+    --sans: 'IBM Plex Sans', system-ui, sans-serif;
+    --maxw: 860px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+
+  body {
+    background: var(--bg);
+    background-image:
+      radial-gradient(900px 620px at 8% -6%, rgba(27,110,72,0.20) 0%, rgba(27,110,72,0) 62%),
+      radial-gradient(760px 560px at 100% 12%, rgba(46,124,92,0.16) 0%, rgba(46,124,92,0) 60%),
+      radial-gradient(820px 700px at 50% 108%, rgba(20,85,55,0.16) 0%, rgba(20,85,55,0) 64%),
+      linear-gradient(168deg, #EEF3EA 0%, #E0EBDD 34%, #D2E1CE 66%, #C4D8C0 100%);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    color: var(--ink);
+    font-family: var(--sans);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
