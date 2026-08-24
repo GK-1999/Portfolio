@@ -20,11 +20,7 @@ jobs:
 
       - name: Deploy to S3
         run: |
-          aws s3 sync . s3://Portfolio --delete
-          
-      - name: Sync to S3
-        run: |
-          aws s3 sync . "s3://${{ secrets.S3_BUCKET }}" \
+          aws s3 sync . s3://gauravkanere-portfoliodata \
             --delete \
             --exclude ".git/*" \
             --exclude ".github/*" \
