@@ -37,9 +37,9 @@ const SUMMARY_HTML =
   "tournaments, which is where EcoChess started.";
 
 const SKILLS = [
-  { label: "Cloud / AWS", tags: ["EC2", "S3", "RDS", "Route 53", "CloudFront", "ACM", "ALB / ASG", "ECR", "IAM & OIDC", "CloudWatch", "Budgets"] },
+  { label: "Cloud / AWS", tags: ["EC2", "S3", "Route 53", "CloudFront", "ACM", "ALB / ASG", "ECR", "IAM & OIDC", "Budgets"] },
   { label: "DevOps / Infra", tags: ["Terraform", "Docker", "GitHub Actions CI/CD", "Linux", "Nginx", "Bash", "Git"] },
-  { label: "Backend & data layer", tags: ["FastAPI", "SQLAlchemy 2.0", "Alembic", "PostgreSQL", "REST APIs", "pytest", "Gunicorn / Uvicorn"] },
+  { label: "Backend & data layer", tags: ["FastAPI", "Alembic", "PostgreSQL", "REST APIs", "pytest", "Uvicorn"] },
   { label: "Languages", tags: ["Python", "SQL", "Bash", "HTML / CSS / JS", { text: "C / C++ (basic)", neutral: true }] },
   { label: "Data / Analytics", tags: [{ text: "Advanced Excel", neutral: true }, { text: "Tableau", neutral: true }, { text: "Power BI", neutral: true }, { text: "ETL (Python/SQL)", neutral: true }] },
   { label: "Learning now", tags: [{ text: "AWS SAA-C03", neutral: true }, { text: "Ansible", neutral: true }, { text: "Kubernetes", neutral: true }, { text: "Prometheus / Grafana", neutral: true }] },
@@ -53,130 +53,38 @@ const PROJECTS = [
     domainHref: "https://gauravkanere.link",
     status: { label: "live", kind: "live" },
     bullets: [
-      "The page you are reading &mdash; a static HTML/CSS/JS site, no framework and no build step, served on AWS",
-      "Apex domain plus per-project subdomains routed through one hosted zone; deployed by a CI pipeline on every push",
+      "Static HTML/CSS/JavaScript portfolio hosted on AWS with automated CI/CD deployment",
+      "Custom domain with HTTPS, globally cached through CloudFront, deployed on every GitHub push",
     ],
-    tags: ["HTML", "CSS", "JavaScript", "S3", "CloudFront", "Route 53", "Lambda", "API Gateway", "SES", { text: "AI-assisted", neutral: true }],
-    detailsLabel: "How it's built & hosted",
+    tags: ["HTML", "CSS", "JavaScript", "S3", "CloudFront", "Route 53", "GitHub Actions"],
+    detailsLabel: "How it's built & deployed",
     detailBlocks: [
       {
         title: "Development",
         items: [
-          "Content lives in <code>content.js</code> as plain data; <code>app.js</code> renders it &mdash; edit one file to change a project, no markup to touch",
-          "<strong>AI-assisted build:</strong> I directed the design, structure and content and used an AI assistant to speed up the markup and styling &mdash; the layout, copy and hosting decisions are mine",
-          "No React, no bundler, no dependencies to patch &mdash; deliberately kept as flat static files so hosting stays trivial and cheap",
-          "Responsive down to mobile, keyboard-focus states and reduced-motion respected; version-controlled on GitHub as the single source of truth for the deploy",
+          "Designed the architecture and structure myself; used AI to accelerate the HTML/CSS/JavaScript implementation",
+          "Manually provisioned all AWS infrastructure: S3 bucket, CloudFront distribution, Route 53, ACM certificate, IAM users with least-privilege policies",
+          "Built the GitHub Actions CI/CD pipeline for automated deployment and cache invalidation",
+          "Debugged end-to-end until the site was fully live and accessible — DNS propagation, OAC permissions, CloudFront cache behavior, everything",
         ],
       },
       {
         title: "AWS features used",
         aws: true,
         items: [
-          "<strong>S3</strong> &mdash; private bucket holding the static files (the origin), locked down with Origin Access Control",
-          "<strong>CloudFront</strong> &mdash; CDN in front of S3 for HTTPS, edge caching and low latency",
-          "<strong>ACM</strong> &mdash; TLS certificate covering <code>gauravkanere.link</code> and its subdomains",
-          "<strong>Route&nbsp;53</strong> &mdash; hosted zone for the apex domain and alias records for the <code>vitalid.</code> and <code>ecochess.</code> subdomains",
-          "<strong>GitHub Actions</strong> &mdash; on push, syncs the files to S3 and issues a CloudFront cache invalidation",
-          "<strong>API Gateway + Lambda + SES</strong> &mdash; serverless endpoint behind the &ldquo;Request access&rdquo; button; emails me the request and confirms to the visitor, so a static site can take submissions with no server to run",
+          "<strong>S3</strong> — private bucket holding the static files (the origin), locked with Origin Access Control",
+          "<strong>CloudFront</strong> — CDN in front of S3 for HTTPS, edge caching, and low latency globally",
+          "<strong>ACM</strong> — TLS certificate covering <code>gauravkanere.link</code>",
+          "<strong>Route 53</strong> — hosted zone for the apex domain and DNS management",
+          "<strong>GitHub Actions</strong> — on push, syncs files to S3 and invalidates the CloudFront cache",
         ],
       },
       {
         title: "Why this shape",
         items: [
-          "The S3 + CloudFront + Route 53 + ACM pattern is the standard, near-free way to serve a static site on AWS &mdash; and doubles as a working demo of the exact pattern described above",
-        ],
-      },
-    ],
-  },
-
-  {
-    name: "VitalID",
-    tag: "Emergency medical ID",
-    domain: "vitalid.gauravkanere.link",
-    domainHref: "https://vitalid.gauravkanere.link",
-    status: { label: "live", kind: "live" },
-    bullets: [
-      "Physical card + QR-gated digital record giving first responders and verified doctors fast access to critical patient data",
-      "Role-based access across patients, doctors, hospitals and admin, with cross-visit history anonymization for privacy",
-    ],
-    tags: ["FastAPI", "PostgreSQL", "Docker", "Nginx", "ReportLab", "GitHub Actions", "AWS EC2", { text: "AI-assisted", neutral: true }],
-    detailsLabel: "View architecture & AWS",
-    detailLinks: [
-      { text: "Live demo ↗", href: "https://vitalid.gauravkanere.link" },
-      { text: "GitHub ↗", href: "https://github.com/GK-1999/vitalid" },
-    ],
-    detailBlocks: [
-      {
-        title: "What I built",
-        items: [
-          "Designed and built solo &mdash; data model, API, PDF/QR card generation and role-based access",
-          "Emergency (instant) vs. normal-visit (OTP-verified) access tiers over the same record",
-          "Cross-doctor history anonymization so unrelated visits stay private",
-          "Admin approval workflow for doctor and hospital verification",
-          "<strong>GitHub Actions CI/CD:</strong> automated build and deploy to EC2 on every push to main",
-          "<strong>AI-assisted development:</strong> I own the architecture and technical decisions; used an AI assistant to accelerate implementation",
-        ],
-      },
-      {
-        title: "AWS features used",
-        aws: true,
-        items: [
-          "<strong>EC2</strong> for application hosting behind Nginx",
-          "<strong>Route&nbsp;53</strong> for DNS on the vitalid subdomain",
-          "<strong>S3</strong> for generated-asset storage",
-          "<strong>AWS Budgets</strong> for cost alerting",
-        ],
-      },
-    ],
-  },
-
-  {
-    name: "EcoChess",
-    tag: "B2B tournament SaaS",
-    domain: "ecochess.gauravkanere.link",
-    domainHref: "https://ecochess.gauravkanere.link",
-    status: { label: "live", kind: "live" },
-    bullets: [
-      "Multi-tenant SaaS for running chess tournaments &mdash; 5 roles, centralized RBAC, Swiss &amp; Round Robin engines, Stockfish-based move analysis",
-      "Built end to end: layered FastAPI backend, PostgreSQL, containerization, GitHub Actions CI/CD, and the full AWS infrastructure as Terraform",
-    ],
-    tags: ["FastAPI", "PostgreSQL", "Docker", "Terraform", "GitHub Actions", "AWS", "Nginx", { text: "AI-assisted", neutral: true }],
-
-    detailsLabel: "View architecture & AWS",
-    detailLinks: [
-      { text: "GitHub ↗", href: "https://github.com/GK-1999/ecochess" },
-    ],
-    detailBlocks: [
-      {
-        title: "What I built",
-        items: [
-          "Designed the whole system solo &mdash; architecture, application, containers, CI/CD and infrastructure",
-          "Layered backend: routers → services → repositories → SQLAlchemy 2.0 models, with RBAC centralized as FastAPI dependency guards (never inline)",
-          "Swiss (FIDE Dutch) and Round Robin engines with tiebreak systems and waitlist auto-promotion",
-          "Stockfish move classification run as a queued background worker, kept off the request path",
-          "Multi-stage Dockerfile (non-root, gunicorn+uvicorn); schema fully owned by Alembic migrations",
-          "<strong>AI-assisted development:</strong> I own the architecture and technical decisions; used an AI assistant to accelerate implementation",
-        ],
-      },
-      {
-        title: "Running vs. scaled down for cost",
-        items: [
-          "<strong>Fully working:</strong> all 5 roles and RBAC, tournament creation, Swiss and Round Robin pairing, registrations and waitlists, scoreboard, credit system, audit trail",
-          "<strong>Scaled down:</strong> RDS runs single-AZ rather than Multi-AZ, and the Auto Scaling Group sits at one instance &mdash; the Terraform supports both, but a portfolio project doesn&#39;t justify the spend",
-          "<strong>Started on request:</strong> Stockfish analysis is CPU-heavy, so the worker comes up with the environment rather than running idle",
-          "Happy to walk through the cost model and what would trigger graduating to the fuller setup",
-        ],
-      },
-      {
-        title: "AWS features used",
-        aws: true,
-        items: [
-          "<strong>Route&nbsp;53</strong> for DNS · <strong>ACM</strong> for TLS on the domain",
-          "<strong>EC2 Auto Scaling Group</strong> behind an <strong>Application Load Balancer</strong>",
-          "<strong>RDS PostgreSQL</strong> as the managed database",
-          "<strong>S3</strong> for object storage (IAM instance-profile auth, keyless)",
-          "<strong>ECR</strong> for container images · <strong>IAM OIDC</strong> for keyless GitHub Actions deploys",
-          "<strong>CloudWatch</strong> for monitoring · <strong>Terraform</strong> for all infrastructure as code",
+          "S3 + CloudFront + Route 53 + ACM is the standard, cost-effective pattern for static site hosting on AWS",
+          "Demonstrates infrastructure thinking: chose this design deliberately for cost (~$0.50/month), scale, and caching behavior",
+          "Proves end-to-end ownership: architecture decisions, infrastructure setup, deployment automation, and operational debugging",
         ],
       },
     ],
